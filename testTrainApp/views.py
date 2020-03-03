@@ -59,10 +59,11 @@ def search_for_connections(transfer, src, dst, time, result):
         # je niektora zo zastavok cielova
 
         if transfer == 5:
+            result = []
             return result
         else:
             for stop in stops:
-                if len(result) > 0 and result[-1]['number'] == train.train.number:
+                if len(result) > 0 and result[-1]['number'] == train.train.number:  # jedna sa o ten isty vlak prichod a hned odchod
                     continue
                 if stop.station.name == src:  # vychodzie stanice sa zhoduju
                     continue
@@ -89,21 +90,14 @@ def search_for_connections(transfer, src, dst, time, result):
                     })
                     connect = search_for_connections(transfer + 1, stop.station.name, dst, stop.arrival_time, result)
                     if len(connect) != 0:
-                        #'''
                         if isinstance(trainslist, list):
                             trainslist += connect
                         else:
-                            trainslist.append(connect)  # ak je list tak len spoj
-                        #'''
-                        #trainslist.append(connect)
-                    if not bool(result[-1]):
+                            trainslist.append(connect)
+                    if not bool(result[-1]):  # kontroluje ci je posledny pridany prazny a teda sa nenasla dalsia cesta
                         #del result[-(transfer+2):]
                         result.pop()
                         result.pop()
-
-                    #elif result[-1]['dst'] == dst:
-                     #   trainslist.append(result)
-                     #   result = []
 
                     else:
                         result = []

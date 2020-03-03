@@ -58,7 +58,7 @@ def search_for_connections(transfer, src, dst, time, result):
         print(stops)
         # je niektora zo zastavok cielova
 
-        if transfer == 3:
+        if transfer == 5:
             return result
         else:
             for stop in stops:
@@ -74,10 +74,9 @@ def search_for_connections(transfer, src, dst, time, result):
                         "dst": dst
 
                     })
-                    if isinstance(result, list):
-                        trainslist += result
-                    else:
-                        trainslist.append(result)
+                    #'''
+
+                    trainslist.append(result)
                     result = []
                     return trainslist
 
@@ -90,8 +89,13 @@ def search_for_connections(transfer, src, dst, time, result):
                     })
                     connect = search_for_connections(transfer + 1, stop.station.name, dst, stop.arrival_time, result)
                     if len(connect) != 0:
-                        trainslist.append(connect) # ak je list tak len spoj
-
+                        #'''
+                        if isinstance(trainslist, list):
+                            trainslist += connect
+                        else:
+                            trainslist.append(connect)  # ak je list tak len spoj
+                        #'''
+                        #trainslist.append(connect)
                     if not bool(result[-1]):
                         #del result[-(transfer+2):]
                         result.pop()
@@ -106,7 +110,7 @@ def search_for_connections(transfer, src, dst, time, result):
                     '''
             result.append(trainslist)
             '''
-    if len(trains_from_station) == 0:
+    if len(trains_from_station) == 0 or trains_from_station[-1].train.number == train.train.number:
         result.append({})
     return trainslist
 

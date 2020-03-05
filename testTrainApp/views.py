@@ -149,6 +149,26 @@ class TrainResultList(APIView):
         return Response(result)
 
 
+class TrainInfo(APIView):
+    def get(self, request, format=None):
+        train_number = self.request.query_params.get('train')
+        stops = TrainStop.objects.filter(train__number=train_number).order_by(
+            F('departure_time').asc(nulls_last=True)
+        )
+        print(stops)
+        route = []
+        for stop in stops:
+            route.append({
+                "station": stop.station.name,
+                "arrival_time": stop.arrival_time,
+                "departure_time:": stop.departure_time,
+                "distance": stop.distance
+            })
+        name = Train.objects.get(number=train_number)
+        info = {"name": name.name, "route": route}
+        return Response(info)
+
+
 class TrainList(APIView):
     """
     List all trains, or create a new train.

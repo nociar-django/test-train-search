@@ -24,6 +24,7 @@ class TrainStop(models.Model):
     station = models.ForeignKey(Station, on_delete=models.CASCADE)
     arrival_time = models.TimeField(null=True, blank=True)
     departure_time = models.TimeField(null=True, blank=True)
+    distance = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         result = str(self.station) + "-" + str(self.train) + " " + str(self.arrival_time)[:-3] + " | " + str(self.departure_time)[:-3]

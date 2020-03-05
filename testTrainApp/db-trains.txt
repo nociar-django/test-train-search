@@ -131,54 +131,54 @@ TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station
 TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Košice').first(), arrival_time='18:37:00', departure_time=None, distance=442)
 
 # Pridanie vlaku 815 do DB
-Train.objects.create(number=813, name='R 815 Slatina')
+Train.objects.create(number=815, name='R 815 Slatina')
 
 # prichody-odchody pre 815
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time=None, departure_time='16:04:00', distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time=None, departure_time='16:04:00', distance=0)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Bratislava-Vinohrady').first(), arrival_time='16:09:00', departure_time='16:10:00', distance=4)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Bratislava-Vinohrady').first(), arrival_time='16:09:00', departure_time='16:10:00', distance=4)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Galanta').first(), arrival_time='16:36:00', departure_time='16:38:00', distance=49)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Galanta').first(), arrival_time='16:36:00', departure_time='16:38:00', distance=49)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Šaľa').first(), arrival_time='16:45:00', departure_time='16:47:00', distance=60)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Šaľa').first(), arrival_time='16:45:00', departure_time='16:47:00', distance=60)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Šurany').first(), arrival_time='17:08:00', departure_time='17:09:00', distance=89)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Šurany').first(), arrival_time='17:08:00', departure_time='17:09:00', distance=89)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Podhájska').first(), arrival_time='17:22:00', departure_time='17:23:00', distance=104)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Podhájska').first(), arrival_time='17:22:00', departure_time='17:23:00', distance=104)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Levice').first(), arrival_time='17:47:00', departure_time='17:48:00', distance=132)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Levice').first(), arrival_time='17:47:00', departure_time='17:48:00', distance=132)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Kozárovce').first(), arrival_time='17:58:00', departure_time='17:59:00', distance=144)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Kozárovce').first(), arrival_time='17:58:00', departure_time='17:59:00', distance=144)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Nová Baňa').first(), arrival_time='18:13:00', departure_time='18:14:00', distance=159)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Nová Baňa').first(), arrival_time='18:13:00', departure_time='18:14:00', distance=159)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Žarnovica').first(), arrival_time='18:24:00', departure_time='18:25:00', distance=170)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Žarnovica').first(), arrival_time='18:24:00', departure_time='18:25:00', distance=170)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Žiar n.Hronom').first(), arrival_time='18:37:00', departure_time='18:38:00', distance=187)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Žiar n.Hronom').first(), arrival_time='18:37:00', departure_time='18:38:00', distance=187)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Zvolen osob.st.').first(), arrival_time='18:56:00', departure_time='19:13:00', distance=209)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Zvolen osob.st.').first(), arrival_time='18:56:00', departure_time='19:13:00', distance=209)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Detva').first(), arrival_time='19:31:00', departure_time='19:32:00', distance=232)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Detva').first(), arrival_time='19:31:00', departure_time='19:32:00', distance=232)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Kriváň').first(), arrival_time='19:35:00', departure_time='19:36:00', distance=235)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Kriváň').first(), arrival_time='19:35:00', departure_time='19:36:00', distance=235)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Lúčenec').first(), arrival_time='19:58:00', departure_time='20:02:00', distance=263)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Lúčenec').first(), arrival_time='19:58:00', departure_time='20:02:00', distance=263)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Fiľakovo').first(), arrival_time='20:13:00', departure_time='20:15:00', distance=278)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Fiľakovo').first(), arrival_time='20:13:00', departure_time='20:15:00', distance=278)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Jesenské').first(), arrival_time='20:40:00', departure_time='20:41:00', distance=307)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Jesenské').first(), arrival_time='20:40:00', departure_time='20:41:00', distance=307)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Číž kúpele').first(), arrival_time='20:53:00', departure_time='20:54:00', distance=323)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Číž kúpele').first(), arrival_time='20:53:00', departure_time='20:54:00', distance=323)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Tornaľa').first(), arrival_time='21:09:00', departure_time='21:10:00', distance=342)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Tornaľa').first(), arrival_time='21:09:00', departure_time='21:10:00', distance=342)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Plešivec').first(), arrival_time='21:23:00', departure_time='21:25:00', distance=358)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Plešivec').first(), arrival_time='21:23:00', departure_time='21:25:00', distance=358)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Rožňava').first(), arrival_time='21:37:00', departure_time='21:39:00', distance=371)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Rožňava').first(), arrival_time='21:37:00', departure_time='21:39:00', distance=371)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Moldava n.Bodvou').first(), arrival_time='22:10:00', departure_time='22:12:00', distance=411)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Moldava n.Bodvou').first(), arrival_time='22:10:00', departure_time='22:12:00', distance=411)
 
-TrainStop.objects.create(train=Train.objects.filter(number=813).first(), station=Station.objects.filter(name='Košice').first(), arrival_time='22:37:00', departure_time=None, distance=442)
+TrainStop.objects.create(train=Train.objects.filter(number=815).first(), station=Station.objects.filter(name='Košice').first(), arrival_time='22:37:00', departure_time=None, distance=442)
 
 # Pridanie vlaku 810 do KE
 Train.objects.create(number=810, name='R 810 Sitno')
@@ -1093,7 +1093,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=713).first(), station
 Train.objects.create(number=708, name='RR 708 Vápeč')
 
 # prichody-odchody pre 708
-TrainStop.objects.create(train=Train.objects.filter(number=708).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=none, departure_time='8:20:00', distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=708).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=None, departure_time='8:20:00', distance=0)
 
 TrainStop.objects.create(train=Train.objects.filter(number=708).first(), station=Station.objects.filter(name='Považská Bystrica').first(), arrival_time='8:41:00', departure_time='8:44:00', distance=32)
 
@@ -1120,7 +1120,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=708).first(), station
 Train.objects.create(number=710, name='RR 710 Čachtice')
 
 # prichody-odchody pre 710
-TrainStop.objects.create(train=Train.objects.filter(number=710).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=none, departure_time='10:20:00', distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=710).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=None, departure_time='10:20:00', distance=0)
 
 TrainStop.objects.create(train=Train.objects.filter(number=710).first(), station=Station.objects.filter(name='Považská Bystrica').first(), arrival_time='10:41:00', departure_time='10:44:00', distance=32)
 
@@ -1148,7 +1148,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=710).first(), station
 Train.objects.create(number=712, name='RR 712 Limbach')
 
 # prichody-odchody pre 712
-TrainStop.objects.create(train=Train.objects.filter(number=712).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=none, departure_time='12:20:00', distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=712).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=None, departure_time='12:20:00', distance=0)
 
 TrainStop.objects.create(train=Train.objects.filter(number=712).first(), station=Station.objects.filter(name='Považská Bystrica').first(), arrival_time='12:41:00', departure_time='12:44:00', distance=32)
 
@@ -1175,7 +1175,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=712).first(), station
 Train.objects.create(number=714, name='RR 714 Dubeň')
 
 # prichody-odchody pre 714
-TrainStop.objects.create(train=Train.objects.filter(number=714).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=none, departure_time='14:20:00', distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=714).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=None, departure_time='14:20:00', distance=0)
 
 TrainStop.objects.create(train=Train.objects.filter(number=714).first(), station=Station.objects.filter(name='Považská Bystrica').first(), arrival_time='14:41:00', departure_time='14:44:00', distance=32)
 
@@ -1202,7 +1202,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=714).first(), station
 Train.objects.create(number=716, name='RR 716 Javorník')
 
 # prichody-odchody pre 716
-TrainStop.objects.create(train=Train.objects.filter(number=716).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=none, departure_time='16:20:00', distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=716).first(), station=Station.objects.filter(name='Žilina').first(), arrival_time=None, departure_time='16:20:00', distance=0)
 
 TrainStop.objects.create(train=Train.objects.filter(number=716).first(), station=Station.objects.filter(name='Považská Bystrica').first(), arrival_time='16:41:00', departure_time='16:44:00', distance=32)
 
@@ -1236,7 +1236,7 @@ Station.objects.create(name='Čadca')
 Train.objects.create(number=344, name='R 344 Fatra')
 
 # prichody-odchody pre 716
-TrainStop.objects.create(train=Train.objects.filter(number=344).first(), station=Station.objects.filter(name='Banská Bystrica').first(), arrival_time=none, departure_time='9:34:00', distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=344).first(), station=Station.objects.filter(name='Banská Bystrica').first(), arrival_time=None, departure_time='9:34:00', distance=0)
 
 TrainStop.objects.create(train=Train.objects.filter(number=344).first(), station=Station.objects.filter(name='Horná Štubňa obec').first(), arrival_time='10:14:00', departure_time='10:15:00', distance=39)
 
@@ -1257,7 +1257,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=344).first(), station
 Train.objects.create(number=342, name='R 342 Fatra')
 
 # prichody-odchody pre 342
-TrainStop.objects.create(train=Train.objects.filter(number=342).first(), station=Station.objects.filter(name='Banská Bystrica').first(), arrival_time=none, departure_time='13:34:00', distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=342).first(), station=Station.objects.filter(name='Banská Bystrica').first(), arrival_time=None, departure_time='13:34:00', distance=0)
 
 TrainStop.objects.create(train=Train.objects.filter(number=342).first(), station=Station.objects.filter(name='Horná Štubňa obec').first(), arrival_time='14:14:00', departure_time='14:15:00', distance=39)
 

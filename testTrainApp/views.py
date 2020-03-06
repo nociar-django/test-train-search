@@ -48,6 +48,76 @@ def stations_on_the_train_route(train, time):
     return stops
 
 
+def stations_on_the_train_route_asc(train, time):
+    stops = TrainStop.objects.filter(train__number=train.train.number).order_by(
+        F('departure_time').asc(nulls_last=True)
+    )
+    if stops[len(stops)-1].departure_time == None:  # Odstranime stanic ktore su pod zvolenym casom okrem None
+        final_stop = list(stops.filter(departure_time=None))
+        stops = list(stops.filter(departure_time__gte=time))
+        stops = stops + final_stop
+    else:
+        stops = list(stops.filter(departure_time__gte=time))
+
+    return stops
+
+
+def contains_destination(stops, dst):
+    """
+    funkcia prechacza zoznam vlakovych stanic a hlada ci neobsahuje ciel
+    :param stops: zoznam stanic ktorimy vlak prechadza
+    :param dst: cielova stanica
+    :return: index na ktorej je cielova stanica, inak false
+    """
+    stop_counter = 0
+    for stop in stops:
+        if stop.station.name == dst:
+            return stop_counter
+        stop_counter += 1
+    return False
+
+
+def create_connection_information(train, stops, dest_index):
+    """
+    funkcia na vytvaranie informacii podla sablony pre pozdejsie parsovanie do JSON-u
+    :param train: komplexne informacie o vlaku
+    :param stops: komplexne informacie o jeho zastavkach
+    :param dest_index: index na ktorom sa vyskytuje cielova zastavka zo vsetkych zastavok
+    :return: slovnik (dict) s klucovimi hodnotami
+    """
+    connection_info = {
+        "number": train.train.number,
+        "name": train.train.name,
+        "src": stops[0].station.name,
+        "departure_time": stops[0].departure_time,
+        "dst": stops[dest_index].station.name,
+        "arrival_time": stops[dest_index].arrival_time,
+        "distance": stops[dest_index].distance - stops[0].distance
+    }
+    return connection_info
+
+
+def search_for_connections2(transfer, src, dst, time):
+    """
+    funkcia vracia zoznam spojov podla zadanych poziadaviek
+    :param transfer: pocet prestupov
+    :param src: vychodzia stanica
+    :param dst: cielova stanica
+    :param time: minimalny cas
+    :return: zoznam spojov
+    """
+    trains_list = []
+    trains_from_station = departures_from_the_station(src, time)
+    for train in trains_from_station:
+        print(train.departure_time)
+        stops = stations_on_the_train_route_asc(train, train.departure_time)
+        dest_index = contains_destination(stops, dst)
+        if dest_index:
+            trains_list.append(create_connection_information(train, stops, dest_index))
+
+    return trains_list
+
+
 def search_for_connections(transfer, src, dst, time, result):
     trains_from_station = departures_from_the_station(src, time)
 
@@ -115,38 +185,9 @@ class TrainResultList(APIView):
         src = request.GET.get('src')
         dst = request.GET.get('dst')
         result = []
-        result = search_for_connections(0, src, dst, time, result)
-        '''
-        transfer = 0
-        max_transfer = 5
-
-        result = []
-
-        # zoznam vlakov odchadzajucich zo stanice v pozadovanom case
-        allTrainsFromStation = departures_from_the_station(src, time)
-        print(allTrainsFromStation)
-        # zoznam stanic ktore konkretny vlak navstivi
-        for train in allTrainsFromStation:
-            stops = stations_on_the_train_route(train, time)
-            print(stops)
-            # je niektora zo zastavok cielova
-            trainslist = []
-            for stop in stops:
-                if stop.station.name == dst:
-                    print("mame ciel: "+dst)
-                    traininfo = {
-                        "number": train.train.number,
-                        "name": train.train.name,
-                        "src": src,
-                        "dst": dst
-
-                    }
-                    trainslist.append(traininfo)
-                    break
-            if len(trainslist) != 0:
-                result.append(trainslist)
-        '''
-        return Response(result)
+        # result = search_for_connections(0, src, dst, time, result)
+        trains_list = search_for_connections2(0, src, dst, time)
+        return Response(trains_list)
 
 
 class TrainInfo(APIView):

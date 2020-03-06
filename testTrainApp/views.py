@@ -97,25 +97,56 @@ def create_connection_information(train, stops, dest_index):
     return connection_info
 
 
-def search_for_connections2(transfer, src, dst, time):
+def search_for_connections2(actual_transfer, max_transfer, src, dst, time):
     """
     funkcia vracia zoznam spojov podla zadanych poziadaviek
-    :param transfer: pocet prestupov
+    :param actual_transfer: aktualny prestup
+    :param max_transfer: maximalny pocet prestupov
     :param src: vychodzia stanica
     :param dst: cielova stanica
     :param time: minimalny cas
     :return: zoznam spojov
     """
     trains_list = []
+    new_added = False
     trains_from_station = departures_from_the_station(src, time)
     for train in trains_from_station:
-        print(train.departure_time)
         stops = stations_on_the_train_route_asc(train, train.departure_time)
         dest_index = contains_destination(stops, dst)
-        if dest_index:
-            trains_list.append(create_connection_information(train, stops, dest_index))
+        for transfer in range(actual_transfer, max_transfer+1):
+            if new_added:
+                new_added = False
+                break
+            if transfer == 0:
+                if dest_index:
+                    result = [create_connection_information(train, stops, dest_index)]
+                    trains_list.append(result)
+                    break
+                else:
+                    counter = 0
+                    stops_list = list(stops)
+                    stops_list.pop(0)
+                    for stop in reversed(stops_list):
+                        time = stop.departure_time
+                        if time is None:
+                            time = stop.arrival_time
+                        result = [create_connection_information(train, stops, len(stops_list))]
+                        result.append(search_for_connections2(transfer+1, max_transfer, stop.station.name, dst, time))
+                        if len(result[-1]) != 0:
+                            trains_list.append(result)
+                            new_added = True
+                            break
+                        counter += 1
+            elif transfer == 1:
+                if dest_index:
+                    return create_connection_information(train, stops, dest_index)
 
     return trains_list
+
+
+
+
+
 
 
 def search_for_connections(transfer, src, dst, time, result):
@@ -186,7 +217,7 @@ class TrainResultList(APIView):
         dst = request.GET.get('dst')
         result = []
         # result = search_for_connections(0, src, dst, time, result)
-        trains_list = search_for_connections2(0, src, dst, time)
+        trains_list = search_for_connections2(0, 1, src, dst, time)
         return Response(trains_list)
 
 

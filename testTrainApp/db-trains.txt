@@ -771,7 +771,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=609).first(), station
 Train.objects.create(number=604, name='R 604 Dargov')
 
 # prichody-odchody pre 604
-TrainStop.objects.create(train=Train.objects.filter(number=604).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time='13:47:00', departure_time=None, distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=604).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time='13:47:00', departure_time=None, distance=445)
 
 TrainStop.objects.create(train=Train.objects.filter(number=604).first(), station=Station.objects.filter(name='Bratislava-Vinohrady').first(), arrival_time='13:39:00', departure_time='13:41:00', distance=441)
 
@@ -818,7 +818,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=604).first(), station
 Train.objects.create(number=606, name='R 606 Liptov')
 
 # prichody-odchody pre 606
-TrainStop.objects.create(train=Train.objects.filter(number=606).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time='15:47:00', departure_time=None, distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=606).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time='15:47:00', departure_time=None, distance=445)
 
 TrainStop.objects.create(train=Train.objects.filter(number=606).first(), station=Station.objects.filter(name='Bratislava-Vinohrady').first(), arrival_time='15:39:00', departure_time='15:41:00', distance=441)
 
@@ -864,7 +864,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=606).first(), station
 Train.objects.create(number=608, name='R 608 Žilinská univerzita')
 
 # prichody-odchody pre 608
-TrainStop.objects.create(train=Train.objects.filter(number=608).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time='17:47:00', departure_time=None, distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=608).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time='17:47:00', departure_time=None, distance=445)
 
 TrainStop.objects.create(train=Train.objects.filter(number=608).first(), station=Station.objects.filter(name='Bratislava-Vinohrady').first(), arrival_time='17:39:00', departure_time='17:41:00', distance=441)
 
@@ -912,7 +912,7 @@ TrainStop.objects.create(train=Train.objects.filter(number=608).first(), station
 Train.objects.create(number=610, name='R 610 Považan')
 
 # prichody-odchody pre 610
-TrainStop.objects.create(train=Train.objects.filter(number=610).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time='19:47:00', departure_time=None, distance=0)
+TrainStop.objects.create(train=Train.objects.filter(number=610).first(), station=Station.objects.filter(name='Bratislava hl.st.').first(), arrival_time='19:47:00', departure_time=None, distance=445)
 
 TrainStop.objects.create(train=Train.objects.filter(number=610).first(), station=Station.objects.filter(name='Bratislava-Vinohrady').first(), arrival_time='19:39:00', departure_time='19:41:00', distance=441)
 

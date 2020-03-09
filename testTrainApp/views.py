@@ -322,6 +322,8 @@ def search_for_connections3(transfer, src, dst, time, result):
                     continue
         print(trains_list)
 
+
+
     return trains_list
 
 

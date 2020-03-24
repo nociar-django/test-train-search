@@ -40,3 +40,19 @@ class StationsSerializer(serializers.HyperlinkedModelSerializer):
 class OwnStationSerializer(serializers.Serializer):
     name = serializers.CharField()
     id = serializers.IntegerField()
+
+
+class OwnTrainSerializer(serializers.Serializer):
+    number = serializers.IntegerField()
+    name = serializers.CharField()
+    src = serializers.CharField()
+    departure_time = serializers.CharField()
+    dst = serializers.CharField()
+    arrival_time = serializers.CharField()
+    distance = serializers.IntegerField()
+
+
+class OwnTrainsSerializer(serializers.Serializer):
+    OwnTrainSerializer(many=True)
+
+

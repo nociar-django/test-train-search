@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions
+import json
 from rest_framework.decorators import api_view
 
 from testTrainApp.serializers import UserSerializer, GroupSerializer
@@ -17,7 +18,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
-from .serializers import OwnStationSerializer
+from .serializers import OwnStationSerializer, OwnTrainSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -212,9 +213,9 @@ def create_connection_information(train, stops, dest_index):
         "number": train.train.number,
         "name": train.train.name,
         "src": stops[0].station.name,
-        "departure_time": stops[0].departure_time,
+        "departure_time": stops[0].departure_time.strftime("%H:%M"),
         "dst": stops[dest_index].station.name,
-        "arrival_time": stops[dest_index].arrival_time,
+        "arrival_time": stops[dest_index].arrival_time.strftime("%H:%M:%S"),
         "distance": stops[dest_index].distance - stops[0].distance
     }
     return connection_info
@@ -232,12 +233,23 @@ def create_connection_information3(train, stops, dest_index):
         "number": train.train.number,
         "name": train.train.name,
         "src": stops[-1].station.name,
-        "departure_time": stops[-1].departure_time,
+        "departure_time": str(stops[-1].departure_time),
         "dst": stops[dest_index].station.name,
-        "arrival_time": stops[dest_index].arrival_time,
+        "arrival_time": str(stops[dest_index].arrival_time),
         "distance": stops[dest_index].distance - stops[-1].distance
     }
     return connection_info
+
+
+def searchDirectConnections(src, dst, time):
+    trains_from_station = departures_from_the_station(src, time)
+    result = []
+    for train in trains_from_station:
+        stops = stations_on_the_train_route_asc(train, train.departure_time)
+        dest_index = contains_destination(stops, dst)
+        if dest_index:
+            result.append(create_connection_information(train, stops, dest_index))
+    return result
 
 
 def search_for_connections2(actual_transfer, max_transfer, src, dst, time):
@@ -415,15 +427,44 @@ def search_for_connections3(transfer, src, dst, time, result):
 
 
 class TrainResultList(APIView):
-    def get(self, request, format=None):
+    pagination_class = LimitOffsetPagination
+
+    @property
+    def paginator(self):
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        else:
+            pass
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset,
+                                                self.request, view=self)
+
+    def get_paginated_response(self, data):
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get(self, request, format=None, *args, **kwargs):
         time = self.request.query_params.get('time')
         src = request.GET.get('src')
         dst = request.GET.get('dst')
-        result = []
-        #result = search_for_connections(0, src, dst, time, result)
-        #trains_list = search_for_connections3(0, src, dst, time, result)
         result = search_for_connections2(0, 1, src, dst, time)
-        return Response(result)
+        #result = searchDirectConnections(src, dst, time)
+        page = self.paginate_queryset(result)
+        if page is not None:
+            #serializer = self.get_paginated_response(OwnTrainSerializer(page, many=True).data)
+            serializer = self.get_paginated_response(page)
+        else:
+            serializer = OwnTrainSerializer(result, many=True)
+        return Response(serializer.data)
+        #return Response(result)
         #return Response(trains_list)
 
 

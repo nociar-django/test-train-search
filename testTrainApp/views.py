@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 
 from testTrainApp.serializers import UserSerializer, GroupSerializer
@@ -11,11 +11,13 @@ from rest_framework.parsers import JSONParser
 
 from django.db.models import F
 from testTrainApp.models import Train, TrainStop, Station
-from testTrainApp.serializers import TrainSerializer
+from testTrainApp.serializers import TrainSerializer, StationsSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
+from .serializers import OwnStationSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -26,6 +28,91 @@ class UserViewSet(viewsets.ModelViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+
+
+class BasicPagination(PageNumberPagination):
+    page_size_query_param = 'limit'
+
+
+class StationViewSet(APIView):
+    pagination_class = BasicPagination
+
+    @property
+    def paginator(self):
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        else:
+            pass
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset,
+                                                self.request, view=self)
+
+    def get_paginated_response(self, data):
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get(self, request, format=None, *args, **kwargs):
+        stations = Station.objects.all()
+        page = self.paginate_queryset(stations)
+        if page is not None:
+            serializer = self.get_paginated_response(StationsSerializer(page, many=True).data)
+        else:
+            serializer = StationsSerializer(stations, many=True)
+        return Response(serializer.data)
+
+
+
+class StationViewSet2(APIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = LimitOffsetPagination
+
+    @property
+    def paginator(self):
+        if not hasattr(self, '_paginator'):
+            if self.pagination_class is None:
+                self._paginator = None
+            else:
+                self._paginator = self.pagination_class()
+        else:
+            pass
+        return self._paginator
+
+    def paginate_queryset(self, queryset):
+
+        if self.paginator is None:
+            return None
+        return self.paginator.paginate_queryset(queryset,
+                                                self.request, view=self)
+
+    def get_paginated_response(self, data):
+        assert self.paginator is not None
+        return self.paginator.get_paginated_response(data)
+
+    def get(self, request, format=None, *args, **kwargs):
+        fnd = request.GET.get('fnd')
+        stations = Station.objects.filter(name__startswith=fnd)
+        result = []
+        counter = 0
+        for station in stations:
+            if counter == 50:
+                break
+            result.append({"name": station.name, "id": counter})
+            counter += 1
+        # res_stat = OwnStationSerializer(result, many=True).data
+        page = self.paginate_queryset(result)
+        if page is not None:
+            serializer = self.get_paginated_response(OwnStationSerializer(page, many=True).data)
+        else:
+            serializer = StationsSerializer(stations, many=True)
+        return Response(serializer.data)
 
 
 def departures_from_the_station(src, time):
@@ -237,7 +324,7 @@ def search_for_connections(transfer, src, dst, time, result):
         #print(stops)
         # je niektora zo zastavok cielova
 
-        if transfer == 3:
+        if transfer == 2:
             result = []
             return result
         else:
@@ -294,7 +381,7 @@ def search_for_connections(transfer, src, dst, time, result):
 
 def search_for_connections3(transfer, src, dst, time, result):
     trains_list = []
-    if transfer == 3:
+    if transfer == 2:
         return trains_list
     trains_from_station = departures_from_the_station_desc(src, time)
     if not trains_from_station:
@@ -334,8 +421,9 @@ class TrainResultList(APIView):
         dst = request.GET.get('dst')
         result = []
         #result = search_for_connections(0, src, dst, time, result)
-        trains_list = search_for_connections3(0, src, dst, time, result)
-        return Response(trains_list)
+        #trains_list = search_for_connections3(0, src, dst, time, result)
+        result = search_for_connections2(0, 1, src, dst, time)
+        return Response(result)
         #return Response(trains_list)
 
 

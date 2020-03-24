@@ -30,3 +30,13 @@ class TrainSerializer(serializers.ModelSerializer):
         model = Train
         fields = ['number', 'name']
 
+
+class StationsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Station
+        fields = ['name']
+
+
+class OwnStationSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    id = serializers.IntegerField()
